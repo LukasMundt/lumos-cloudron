@@ -1,0 +1,25 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ejs": "^3.1.9",
+    "expect.js": "^0.3.1",
+    "mkdirp": "^3.0.1",
+    "mocha": "^10.2.0",
+    "rimraf": "^5.0.5",
+    "superagent": "^8.1.2"
+  },
+  "dependencies": {
+    "chromedriver": "^118.0.0",
+    "selenium-server-standalone-jar": "^4.14.0",
+    "selenium-webdriver": "^4.14.0",
+    "superagent": "^8.1.2"
+  }
+}
