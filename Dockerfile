@@ -5,7 +5,7 @@ WORKDIR /app/code
 
 ARG VERSION=0.2.1
 
-RUN wget https://github.com/LukasMundt/lumosBaseApplication/archive/v${VERSION}.tar.gz -O -| tar -xz -C /app/code --strip-components=1 && \
+RUN wget https://github.com/LukasMundt/lumosBaseApplication/archive/${VERSION}.tar.gz -O -| tar -xz -C /app/code --strip-components=1 && \
     chown -R www-data:www-data /app/code
 
 # when external repo is added, apt-get will install the latest in case of conflicting name. apt-cache policy <name> will show what is getting used
@@ -121,5 +121,7 @@ COPY start.sh credentials.template phpmyadmin_login.template /app/code/
 
 # lock www-data but allow su - www-data to work
 RUN passwd -l www-data && usermod --shell /bin/bash --home /app/data www-data
+
+RUN chmod +x start.sh
 
 CMD [ "/app/code/start.sh" ]
