@@ -10,7 +10,7 @@ if [[ ! -f /app/data/.cr ]]; then
     echo "=> First run"
     mkdir -p /app/data/storage
     cp -R /app/code/storage.template/* /app/data/storage
-    cp /app/code/env.production.template /app/data/env
+    cp /app/code/.env.prod-cloudron /app/data/.env
 
     chown -R www-data:www-data /run/lumos /app/data
 
