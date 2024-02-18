@@ -1,6 +1,6 @@
 {
   "id": "lumos.cloudronapp.php74",
-  "title": "LAMP",
+  "title": "Lumos",
   "author": "Cloudron developers",
   "description": "file://DESCRIPTION.md",
   "tagline": "An empty LAMP stack (PHP 7.4, 8.0, 8.1)",
@@ -9,8 +9,6 @@
   "healthCheckPath": "/",
   "httpPort": 80,
   "manifestVersion": 2,
-  "website": "https://cloudron.io/",
-  "contactEmail": "apps@cloudron.io",
   "icon": "logo.png",
   "addons": {
     "mysql": {},

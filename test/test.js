@@ -53,16 +53,16 @@ describe('Application life cycle test', function () {
         expect(app).to.be.an('object');
     }
 
-    async function welcomePage() {
-        await browser.get('https://' + app.fqdn);
-        await waitForElement(By.xpath('//*[contains(text(), "Cloudron LAMP App")]'));
-    }
+    // async function welcomePage() {
+    //     await browser.get('https://' + app.fqdn);
+    //     await waitForElement(By.xpath('//*[contains(text(), "Cloudron LAMP App")]'));
+    // }
 
-    async function uploadedFileExists() {
-        await browser.get('https://' + app.fqdn + '/test.php');
-        await waitForElement(By.xpath('//*[text()="this works"]'));
-        await waitForElement(By.xpath('//*[text()="' + app.fqdn + '"]'));
-    }
+    // async function uploadedFileExists() {
+    //     await browser.get('https://' + app.fqdn + '/test.php');
+    //     await waitForElement(By.xpath('//*[text()="this works"]'));
+    //     await waitForElement(By.xpath('//*[text()="' + app.fqdn + '"]'));
+    // }
 
     async function checkIonCube() {
         await browser.get('https://' + app.fqdn + '/test.php');

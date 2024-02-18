@@ -18,7 +18,7 @@ if [[ ! -f /app/data/.cr ]]; then
     $ARTISAN key:generate --force --no-interaction
 
     echo "=> Run migrations and seed database"
-    $ARTISAN lumos:install --force
+    $ARTISAN lumos:install
 
     # echo "=> Create the access tokens required for the API"
     # $ARTISAN passport:keys --force
@@ -28,7 +28,7 @@ if [[ ! -f /app/data/.cr ]]; then
 else
     echo "=> Existing installation. Running migration script"
     chown -R www-data:www-data /run/lumos /app/data
-    $ARTISAN lumos:update --force
+    # $ARTISAN lumos:update --force
 fi
 
 

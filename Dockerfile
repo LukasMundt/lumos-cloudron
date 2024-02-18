@@ -3,7 +3,7 @@ FROM cloudron/base:4.2.0@sha256:46da2fffb36353ef714f97ae8e962bd2c212ca091108d768
 RUN mkdir -p /app/code
 WORKDIR /app/code
 
-ARG VERSION=0.2.1
+ARG VERSION=0.2.2
 
 RUN wget https://github.com/LukasMundt/lumosBaseApplication/archive/${VERSION}.tar.gz -O -| tar -xz -C /app/code --strip-components=1 && \
     chown -R www-data:www-data /app/code
@@ -109,15 +109,17 @@ RUN mkdir /tmp/ioncube && \
     echo "zend_extension=/usr/lib/php/20210902/ioncube_loader_lin_8.1.so" > /etc/php/8.1/apache2/conf.d/00-ioncube.ini && \
     echo "zend_extension=/usr/lib/php/20210902/ioncube_loader_lin_8.1.so" > /etc/php/8.1/cli/conf.d/00-ioncube.ini
 
+RUN mkdir /app/code/storage/app/public
+
 RUN chmod -R g+rw /app/code/storage \
     && mv /app/code/storage /app/code/storage.template && ln -s /app/data/storage /app/code/storage \
-    && mv /app/code/bootstrap/cache /app/code/bootstrap/cache.template && ln -s /run/monica/bootstrap-cache /app/code/bootstrap/cache \
-    && ln -s /app/data/env /app/code/.env 
-    # && ln -s /app/code/storage/app/public /app/code/public/storage
+    # && mv /app/code/bootstrap/cache /app/code/bootstrap/cache.template && ln -s /run/monica/bootstrap-cache /app/code/bootstrap/cache \
+    && ln -s /app/data/env /app/code/.env \
+    && ln -s /app/code/storage/app/public /app/code/public/storage
 
 
 # add code
-COPY start.sh credentials.template phpmyadmin_login.template /app/code/
+COPY start.sh credentials.template phpmyadmin_login.template env.production.template /app/code/
 
 # lock www-data but allow su - www-data to work
 RUN passwd -l www-data && usermod --shell /bin/bash --home /app/data www-data
