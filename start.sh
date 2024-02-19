@@ -2,7 +2,7 @@
 
 set -eu
 
-mkdir -p /run/apache2 /run/lumos/sessions /run/lumos/logs /app/data/apache
+mkdir -p /run/lumos /run/lumos/sessions /run/lumos/logs /app/data/apache
 
 readonly ARTISAN="sudo -E -u www-data php /app/code/artisan"
 
@@ -53,8 +53,8 @@ fi
 
 readonly php_version=$(sed -ne 's/^PHP_VERSION=\(.*\)$/\1/p' /app/data/PHP_VERSION)
 echo "==> PHP version set to ${php_version}"
-ln -sf /etc/apache2/mods-available/php${php_version}.conf /run/apache2/php.conf
-ln -sf /etc/apache2/mods-available/php${php_version}.load /run/apache2/php.load
+ln -sf /etc/apache2/mods-available/php${php_version}.conf /run/lumos/php.conf
+ln -sf /etc/apache2/mods-available/php${php_version}.load /run/lumos/php.load
 
 # source it so that env vars are persisted
 echo "==> Source custom startup script"
@@ -90,7 +90,7 @@ sed -e "s,\bMYSQL_HOST\b,${CLOUDRON_MYSQL_HOST}," \
     -e "s,\bREDIS_URL\b,${CLOUDRON_REDIS_URL:-NA}," \
     /app/code/credentials.template > /app/data/credentials.txt
 
-chown -R www-data:www-data /app/data /run/apache2 /run/lumos /tmp
+chown -R www-data:www-data /app/data /run/lumos /tmp
 
 echo "=> Starting Apache"
 APACHE_CONFDIR="" source /etc/apache2/envvars
