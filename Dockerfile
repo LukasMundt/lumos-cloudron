@@ -111,7 +111,7 @@ RUN mkdir /tmp/ioncube && \
 
 RUN chmod -R g+rw /app/code/storage \
     && mv /app/code/storage /app/code/storage.template && ln -s /app/data/storage /app/code/storage \
-    # && mv /app/code/bootstrap/cache /app/code/bootstrap/cache.template && ln -s /run/monica/bootstrap-cache /app/code/bootstrap/cache \
+    && mv /app/code/bootstrap/cache /app/code/bootstrap/cache.template && ln -s /run/lumos/bootstrap-cache /app/code/bootstrap/cache \
     && ln -s /app/data/env /app/code/.env \
     && ln -s /app/code/storage/app/public /app/code/public/storage
 
