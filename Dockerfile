@@ -139,7 +139,6 @@ RUN wget https://github.com/LukasMundt/lumosBaseApplication/archive/${VERSION}.t
 
 RUN wget https://getcomposer.org/download/2.6.5/composer.phar -O /usr/bin/composer && chmod +x /usr/bin/composer
 
-RUN mkdir bootstrap/cache
 RUN chmod -R g+w bootstrap/cache
 RUN sudo -u www-data composer install --no-interaction --no-suggest --no-dev && \
     sudo -u www-data composer clear-cache
