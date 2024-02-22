@@ -167,7 +167,7 @@ RUN ln -s /app/data/php.ini /etc/php/8.1/apache2/conf.d/99-cloudron.ini && \
 
 RUN chmod -R g+rw /app/code/storage \
     && mv /app/code/storage /app/code/storage.template && ln -s /app/data/storage /app/code/storage \
-    && mv /app/code/bootstrap/cache /app/code/bootstrap/cache.template && ln -s /run/monica/bootstrap-cache /app/code/bootstrap/cache \
+    # && mv /app/code/bootstrap/cache /app/code/bootstrap/cache.template && ln -s /run/monica/bootstrap-cache /app/code/bootstrap/cache \
     && ln -s /app/data/env /app/code/.env \
     && ln -s /app/code/storage/app/public /app/code/public/storage
 
