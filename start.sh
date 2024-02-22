@@ -18,7 +18,8 @@ if [[ ! -f /app/data/.cr ]]; then
     $ARTISAN key:generate --force --no-interaction
 
     echo "=> Run migrations and seed database"
-    $ARTISAN lumos:install
+    # $ARTISAN lumos:install
+    $ARTISAN migrate --seed --force
 
     # echo "=> Create the access tokens required for the API"
     # $ARTISAN passport:keys --force
