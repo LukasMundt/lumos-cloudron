@@ -148,7 +148,8 @@ RUN npm install && npm run build && chown -R www-data:www-data /app/code
 # configure apache
 RUN rm /etc/apache2/sites-enabled/*
 RUN sed -e 's,^ErrorLog.*,ErrorLog "|/bin/cat",' -i /etc/apache2/apache2.conf
-COPY apache/mpm_prefork.conf /etc/apache2/mods-available/mpm_prefork.conf
+# COPY apache/mpm_prefork.conf /etc/apache2/mods-available/mpm_prefork.conf
+RUN ln -sf /app/data/apache/mpm_prefork.conf /etc/apache2/mods-enabled/mpm_prefork.conf
 
 RUN a2disconf other-vhosts-access-log
 ADD apache/app.conf /etc/apache2/sites-enabled/app.conf
