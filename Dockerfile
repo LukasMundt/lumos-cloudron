@@ -146,10 +146,22 @@ RUN sudo -u www-data composer install --no-interaction --no-suggest --no-dev && 
 RUN npm install && npm run build && chown -R www-data:www-data /app/code
 
 # configure apache
-RUN rm /etc/apache2/sites-enabled/*
-RUN sed -e 's,^ErrorLog.*,ErrorLog "|/bin/cat",' -i /etc/apache2/apache2.conf
+# RUN rm /etc/apache2/sites-enabled/*
+# RUN sed -e 's,^ErrorLog.*,ErrorLog "|/bin/cat",' -i /etc/apache2/apache2.conf
 # COPY apache/mpm_prefork.conf /etc/apache2/mods-available/mpm_prefork.conf
-RUN ln -sf /app/data/apache/mpm_prefork.conf /etc/apache2/mods-enabled/mpm_prefork.conf
+# RUN ln -sf /app/data/apache/mpm_prefork.conf /etc/apache2/mods-enabled/mpm_prefork.conf
+
+RUN a2disconf other-vhosts-access-log && \
+    echo "Listen 80" > /etc/apache2/ports.conf && \
+    a2enmod alias rewrite headers rewrite expires cache ldap authnz_ldap proxy proxy_http proxy_wstunnel && \
+    a2dismod perl && \
+    rm /etc/apache2/sites-enabled/* && \
+    sed -e 's,^ErrorLog.*,ErrorLog "|/bin/cat",' -i /etc/apache2/apache2.conf && \
+    ln -sf /app/data/apache/mpm_prefork.conf /etc/apache2/mods-enabled/mpm_prefork.conf && \
+    ln -sf /app/data/apache/app.conf /etc/apache2/sites-enabled/app.conf && \
+    rm /etc/apache2/mods-enabled/php*.conf /etc/apache2/mods-enabled/php*.load && \
+    ln -sf /run/apache2/php.conf /etc/apache2/mods-enabled/php.conf && \
+    ln -sf /run/apache2/php.load /etc/apache2/mods-enabled/php.load
 
 RUN a2disconf other-vhosts-access-log
 ADD apache/app.conf /etc/apache2/sites-enabled/app.conf
