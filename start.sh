@@ -2,7 +2,7 @@
 
 set -eu
 
-mkdir -p /run/lumos /run/lumos/sessions /run/lumos/logs /app/data/apache
+mkdir -p /run/apache2 /run/lumos /run/lumos/sessions /run/lumos/logs /app/data/apache
 
 readonly ARTISAN="sudo -E -u www-data php /app/code/artisan"
 
@@ -28,24 +28,14 @@ if [[ ! -f /app/data/.cr ]]; then
     touch /app/data/.cr
 else
     echo "=> Existing installation. Running migration script"
-    chown -R www-data:www-data /run/lumos /app/data
+    chown -R www-data:www-data /run/apache2 /run/lumos /app/data
     # $ARTISAN lumos:update --force
 fi
 
 
-# generate files if neither index.* or .htaccess
-# if [[ -z "$(ls -A /app/data/public)" ]]; then
-#     echo "==> Generate files on first run" # possibly not first run if user deleted index.*
-#     cp /app/code/index.php /app/data/public/index.php
-#     echo -e "#!/bin/bash\n\n# Place custom startup commands here" > /app/data/run.sh
-#     touch /app/data/public/.htaccess
-# else
-#     echo "==> Do not override existing index file"
-# fi
-
 
 if [[ ! -f /app/data/php.ini ]]; then
-    echo -e "; Add custom PHP configuration in this file\n; Settings here are merged with the package's built-in php.ini; Restart the app for any changes to take effect\n\n" > /app/data/php.ini
+    echo -e "; Add custom PHP configuration in this file\n; Settings here are merged with the package's built-in php.ini; Restart the app for any changes to take effect\n\nsession.save_path = "/run/lumos/sessions"" > /app/data/php.ini
 fi
 
 [[ ! -f /app/data/apache/mpm_prefork.conf ]] && cp /app/code/apache/mpm_prefork.conf /app/data/apache/mpm_prefork.conf
@@ -54,8 +44,9 @@ fi
 
 readonly php_version=$(sed -ne 's/^PHP_VERSION=\(.*\)$/\1/p' /app/data/PHP_VERSION)
 echo "==> PHP version set to ${php_version}"
-ln -sf /etc/apache2/mods-available/php${php_version}.conf /run/lumos/php.conf
-ln -sf /etc/apache2/mods-available/php${php_version}.load /run/lumos/php.load
+ln -sf /etc/apache2/mods-available/php${php_version}.conf /run/apache2/php.conf
+ln -sf /etc/apache2/mods-available/php${php_version}.load /run/apache2/php.load
+
 
 # source it so that env vars are persisted
 echo "==> Source custom startup script"
@@ -90,8 +81,15 @@ sed -e "s,\bMYSQL_HOST\b,${CLOUDRON_MYSQL_HOST}," \
     -e "s,\bREDIS_PASSWORD\b,${CLOUDRON_REDIS_PASSWORD:-NA}," \
     -e "s,\bREDIS_URL\b,${CLOUDRON_REDIS_URL:-NA}," \
     /app/code/credentials.template > /app/data/credentials.txt
+    
+# sessions, logs and cache
+[[ -d /app/data/storage/framework/sessions ]] && rm -rf /app/data/storage/framework/sessions
+ln -sf /run/lumos/sessions /app/data/storage/framework/sessions
+rm -rf /app/data/storage/framework/cache && ln -s /run/lumos/framework-cache /app/data/storage/framework/cache
+rm -rf /app/data/storage/logs && ln -s /run/lumos/logs /app/data/storage/logs
 
-chown -R www-data:www-data /app/data /run/lumos /tmp
+
+chown -R www-data:www-data /app/data /run/apache2 /run/lumos /tmp
 
 echo "=> Starting Apache"
 APACHE_CONFDIR="" source /etc/apache2/envvars
