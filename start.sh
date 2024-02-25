@@ -86,7 +86,7 @@ sed -e "s,\bMYSQL_HOST\b,${CLOUDRON_MYSQL_HOST}," \
 [[ -d /app/data/storage/framework/sessions ]] && rm -rf /app/data/storage/framework/sessions
 ln -sf /run/lumos/sessions /app/data/storage/framework/sessions
 # rm -rf /app/data/storage/framework/cache && ln -s /run/lumos/framework-cache /app/data/storage/framework/cache
-rm -rf /app/data/storage/logs && ln -s /run/lumos/logs /app/data/storage/logs
+# rm -rf /app/data/storage/logs && ln -s /run/lumos/logs /app/data/storage/logs
 
 
 chown -R www-data:www-data /app/data /run/apache2 /run/lumos /tmp
