@@ -2,7 +2,7 @@
 
 set -eu
 
-mkdir -p /run/apache2 /run/lumos /app/data/apache
+mkdir -p /run/apache2 /run/lumos /run/lumos/sessions /app/data/apache
 
 readonly ARTISAN="sudo -E -u www-data php /app/code/artisan"
 
@@ -85,7 +85,7 @@ sed -e "s,\bMYSQL_HOST\b,${CLOUDRON_MYSQL_HOST}," \
 # sessions, logs and cache
 [[ -d /app/data/storage/framework/sessions ]] && rm -rf /app/data/storage/framework/sessions
 ln -sf /run/lumos/sessions /app/data/storage/framework/sessions
-rm -rf /app/data/storage/framework/cache && ln -s /run/lumos/framework-cache /app/data/storage/framework/cache
+# rm -rf /app/data/storage/framework/cache && ln -s /run/lumos/framework-cache /app/data/storage/framework/cache
 rm -rf /app/data/storage/logs && ln -s /run/lumos/logs /app/data/storage/logs
 
 
