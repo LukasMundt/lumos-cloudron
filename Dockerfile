@@ -120,7 +120,7 @@ RUN chmod -R g+rw /app/code/storage \
 
 
 # add code
-COPY start.sh credentials.template phpmyadmin_login.template env.production.template /app/code/
+COPY start.sh credentials.template phpmyadmin_login.template /app/code/
 
 # lock www-data but allow su - www-data to work
 RUN passwd -l www-data && usermod --shell /bin/bash --home /app/data www-data
