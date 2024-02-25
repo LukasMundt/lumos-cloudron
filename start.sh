@@ -2,7 +2,7 @@
 
 set -eu
 
-mkdir -p /run/apache2 /run/lumos /run/lumos/sessions /run/lumos/logs /app/data/apache
+mkdir -p /run/apache2 /run/lumos /app/data/apache
 
 readonly ARTISAN="sudo -E -u www-data php /app/code/artisan"
 
