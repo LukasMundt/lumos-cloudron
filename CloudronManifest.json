@@ -1,33 +1,32 @@
 {
   "id": "lumos.cloudronapp.php74",
   "title": "Lumos",
-  "author": "Cloudron developers",
-  "description": "file://DESCRIPTION.md",
-  "tagline": "An empty LAMP stack (PHP 7.4, 8.0, 8.1)",
-  "version": "3.4.2",
-  "upstreamVersion": "PHP - 7.4, 8.0, 8.1, 8.2",
+  "author": "Lukas Mundt",
+  "version": "0.2.7",
   "healthCheckPath": "/",
   "httpPort": 80,
   "manifestVersion": 2,
   "icon": "logo.png",
   "addons": {
     "mysql": {},
-    "localstorage": {
-      "ftp": {
-        "uid": 33,
-        "uname": "www-data"
-      }
-    },
+    "localstorage": {},
     "sendmail": {},
-    "redis": { "optional": true },
-    "ldap": {}
+    "redis": {
+      "optional": true
+    }
   },
-  "tags": [ "apache", "php", "mysql", "hosting", "lamp", "stacks", "development" ],
-  "mediaLinks": [  ],
+  "tags": [
+    "apache",
+    "php",
+    "mysql",
+    "hosting",
+    "lamp",
+    "stacks",
+    "development"
+  ],
   "changelog": "file://CHANGELOG",
   "postInstallMessage": "file://POSTINSTALL.md",
   "multiDomain": false,
-  "minBoxVersion": "7.5.1",
-  "forumUrl": "https://forum.cloudron.io/category/15/lamp",
-  "documentationUrl": "https://docs.cloudron.io/apps/lamp/"
+  "memoryLimit": 524288000,
+  "minBoxVersion": "7.5.1"
 }
