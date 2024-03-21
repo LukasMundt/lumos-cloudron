@@ -5,10 +5,10 @@ WORKDIR /app/code
 
 ARG VERSION=0.2.9
 
-RUN wget https://github.com/LukasMundt/lumosBaseApplication/archive/${VERSION}.tar.gz -O -| tar -xz -C /app/code --strip-components=1 && \
-    chown -R www-data:www-data /app/code
-# RUN wget https://github.com/LukasMundt/lumosBaseApplication/archive/refs/heads/master.tar.gz -O -| tar -xz -C /app/code --strip-components=1 && \
+# RUN wget https://github.com/LukasMundt/lumosBaseApplication/archive/${VERSION}.tar.gz -O -| tar -xz -C /app/code --strip-components=1 && \
 #     chown -R www-data:www-data /app/code
+RUN wget https://github.com/LukasMundt/lumosBaseApplication/archive/refs/heads/master.tar.gz -O -| tar -xz -C /app/code --strip-components=1 && \
+    chown -R www-data:www-data /app/code
 
 # when external repo is added, apt-get will install the latest in case of conflicting name. apt-cache policy <name> will show what is getting used
 # so the remove of 7.4 is probably superfluous but here for completeness

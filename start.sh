@@ -40,7 +40,7 @@ fi
 
 [[ ! -f /app/data/apache/mpm_prefork.conf ]] && cp /app/code/apache/mpm_prefork.conf /app/data/apache/mpm_prefork.conf
 [[ ! -f /app/data/apache/app.conf ]] && cp /app/code/apache/app.conf /app/data/apache/app.conf
-[[ ! -f /app/data/PHP_VERSION ]] && echo -e "; Set the desired PHP version in this file\n; Restart app for changes to take effect\nPHP_VERSION=8.1" > /app/data/PHP_VERSION
+[[ ! -f /app/data/PHP_VERSION ]] && echo -e "; Set the desired PHP version in this file\n; Restart app for changes to take effect\nPHP_VERSION=8.2" > /app/data/PHP_VERSION
 
 readonly php_version=$(sed -ne 's/^PHP_VERSION=\(.*\)$/\1/p' /app/data/PHP_VERSION)
 echo "==> PHP version set to ${php_version}"
