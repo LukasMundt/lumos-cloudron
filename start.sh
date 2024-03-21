@@ -6,34 +6,6 @@ mkdir -p /run/apache2 /run/lumos /run/lumos/sessions /app/data/apache
 
 readonly ARTISAN="sudo -E -u www-data php /app/code/artisan"
 
-if [[ ! -f /app/data/.cr ]]; then
-    echo "=> First run"
-    mkdir -p /app/data/storage
-    cp -R /app/code/storage.template/* /app/data/storage
-    cp /app/code/.env.prod-cloudron /app/data/env
-
-    chown -R www-data:www-data /run/lumos /app/data
-
-    echo "=> Generating app key"
-    $ARTISAN key:generate --force --no-interaction
-
-    echo "=> Run migrations and seed database"
-    $ARTISAN lumos:install
-    # $ARTISAN migrate --seed --force
-
-    # echo "=> Create the access tokens required for the API"
-    # $ARTISAN passport:keys --force
-    # $ARTISAN passport:client --personal --no-interaction
-
-    touch /app/data/.cr
-else
-    echo "=> Existing installation. Running migration script"
-    chown -R www-data:www-data /run/apache2 /run/lumos /app/data
-    # $ARTISAN lumos:update --force
-fi
-
-
-
 if [[ ! -f /app/data/php.ini ]]; then
     echo -e "; Add custom PHP configuration in this file\n; Settings here are merged with the package's built-in php.ini; Restart the app for any changes to take effect\n\nsession.save_path = "/run/lumos/sessions"" > /app/data/php.ini
 fi
@@ -81,6 +53,32 @@ sed -e "s,\bMYSQL_HOST\b,${CLOUDRON_MYSQL_HOST}," \
     -e "s,\bREDIS_PASSWORD\b,${CLOUDRON_REDIS_PASSWORD:-NA}," \
     -e "s,\bREDIS_URL\b,${CLOUDRON_REDIS_URL:-NA}," \
     /app/code/credentials.template > /app/data/credentials.txt
+
+    if [[ ! -f /app/data/.cr ]]; then
+    echo "=> First run"
+    mkdir -p /app/data/storage
+    cp -R /app/code/storage.template/* /app/data/storage
+    cp /app/code/.env.prod-cloudron /app/data/env
+
+    chown -R www-data:www-data /run/lumos /app/data
+
+    echo "=> Generating app key"
+    $ARTISAN key:generate --force --no-interaction
+
+    echo "=> Run migrations and seed database"
+    $ARTISAN lumos:install
+    # $ARTISAN migrate --seed --force
+
+    # echo "=> Create the access tokens required for the API"
+    # $ARTISAN passport:keys --force
+    # $ARTISAN passport:client --personal --no-interaction
+
+    touch /app/data/.cr
+else
+    echo "=> Existing installation. Running migration script"
+    chown -R www-data:www-data /run/apache2 /run/lumos /app/data
+    # $ARTISAN lumos:update --force
+fi
     
 # sessions, logs and cache
 [[ -d /app/data/storage/framework/sessions ]] && rm -rf /app/data/storage/framework/sessions
