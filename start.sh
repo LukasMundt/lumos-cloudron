@@ -54,7 +54,7 @@ sed -e "s,\bMYSQL_HOST\b,${CLOUDRON_MYSQL_HOST}," \
     -e "s,\bREDIS_URL\b,${CLOUDRON_REDIS_URL:-NA}," \
     /app/code/credentials.template > /app/data/credentials.txt
 
-    if [[ ! -f /app/data/.cr ]]; then
+if [[ ! -f /app/data/.cr ]]; then
     echo "=> First run"
     mkdir -p /app/data/storage
     cp -R /app/code/storage.template/* /app/data/storage
@@ -77,7 +77,7 @@ sed -e "s,\bMYSQL_HOST\b,${CLOUDRON_MYSQL_HOST}," \
 else
     echo "=> Existing installation. Running migration script"
     chown -R www-data:www-data /run/apache2 /run/lumos /app/data
-    # $ARTISAN lumos:update --force
+    $ARTISAN migrate --force
 fi
     
 # sessions, logs and cache

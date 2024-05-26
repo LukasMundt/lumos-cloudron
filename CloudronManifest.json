@@ -13,7 +13,13 @@
     "sendmail": {},
     "redis": {
       "optional": true
-    }
+    },
+    "scheduler": {
+      "run_scheduler": {
+          "schedule": "* * * * *",
+          "command": "cd /app/code && php artisan schedule:run"
+      }
+  }
   },
   "tags": [
     "apache",
