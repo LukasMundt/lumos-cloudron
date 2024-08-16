@@ -52,15 +52,15 @@ sed -e "s,\bMYSQL_HOST\b,${CLOUDRON_MYSQL_HOST}," \
     -e "s,\bREDIS_PORT\b,${CLOUDRON_REDIS_PORT:-NA}," \
     -e "s,\bREDIS_PASSWORD\b,${CLOUDRON_REDIS_PASSWORD:-NA}," \
     -e "s,\bREDIS_URL\b,${CLOUDRON_REDIS_URL:-NA}," \
-    -e "s,\bMAIL_IMAP_SERVER\b,${CLOUDRON_MAIL_IMAP_SERVER},"\
-    -e "s,\bMAIL_IMAP_PORT\b,${CLOUDRON_MAIL_IMAP_PORT},"\
-    -e "s,\bMAIL_IMAPS_PORT\b,${CLOUDRON_MAIL_IMAPS_PORT},"\
-    -e "s,\bMAIL_POP3_PORT\b,${CLOUDRON_MAIL_POP3_PORT},"\
-    -e "s,\bMAIL_POP3S_PORT\b,${CLOUDRON_MAIL_POP3S_PORT},"\
-    -e "s,\bMAIL_IMAP_USERNAME\b,${CLOUDRON_MAIL_IMAP_USERNAME},"\
-    -e "s,\bMAIL_IMAP_PASSWORD\b,${CLOUDRON_MAIL_IMAP_PASSWORD},"\
-    -e "s,\bMAIL_TO\b,${CLOUDRON_MAIL_TO},"\
-    -e "s,\bMAIL_TO_DOMAIN\b,${CLOUDRON_MAIL_TO_DOMAIN},"\
+    -e "s,\bMAIL_IMAP_SERVER\b,${CLOUDRON_MAIL_IMAP_SERVER:-NA},"\
+    -e "s,\bMAIL_IMAP_PORT\b,${CLOUDRON_MAIL_IMAP_PORT:-NA},"\
+    -e "s,\bMAIL_IMAPS_PORT\b,${CLOUDRON_MAIL_IMAPS_PORT:-NA},"\
+    -e "s,\bMAIL_POP3_PORT\b,${CLOUDRON_MAIL_POP3_PORT:-NA},"\
+    -e "s,\bMAIL_POP3S_PORT\b,${CLOUDRON_MAIL_POP3S_PORT:-NA},"\
+    -e "s,\bMAIL_IMAP_USERNAME\b,${CLOUDRON_MAIL_IMAP_USERNAME:-NA},"\
+    -e "s,\bMAIL_IMAP_PASSWORD\b,${CLOUDRON_MAIL_IMAP_PASSWORD:-NA},"\
+    -e "s,\bMAIL_TO\b,${CLOUDRON_MAIL_TO:-NA},"\
+    -e "s,\bMAIL_TO_DOMAIN\b,${CLOUDRON_MAIL_TO_DOMAIN:-NA},"\
     /app/code/credentials.template > /app/data/credentials.txt
 
 if [[ ! -f /app/data/.cr ]]; then
