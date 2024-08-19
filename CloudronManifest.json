@@ -2,11 +2,14 @@
   "id": "lumos.cloudronapp.php74",
   "title": "Lumos",
   "author": "Lukas Mundt",
-  "version": "0.3.1",
+  "version": "0.3.2-beta",
   "healthCheckPath": "/health",
   "httpPort": 80,
   "manifestVersion": 2,
   "icon": "logo.png",
+  "checklist": {
+    "assing_mailbox":{"message" : "Assing a mailbox if you want Lumos to work."}
+  },
   "addons": {
     "mysql": {},
     "localstorage": {},
