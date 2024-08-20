@@ -2,7 +2,7 @@
   "id": "lumos.cloudronapp.php74",
   "title": "Lumos",
   "author": "Lukas Mundt",
-  "version": "0.3.2-beta1",
+  "version": "0.3.2-beta2",
   "healthCheckPath": "/health",
   "httpPort": 80,
   "manifestVersion": 2,
